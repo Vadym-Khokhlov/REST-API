@@ -1,12 +1,3 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-
-const { User } = require("../../models/user");
-
-const { HttpError, ctrlWrapper } = require("../../helpers");
-
-const { SECRET_KEY } = process.env;
-
 const getCurrent = async (req, res, next) => {
   try {
     const { email, subscription } = req.user;
@@ -16,6 +7,4 @@ const getCurrent = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  getCurrent: ctrlWrapper(getCurrent),
-};
+module.exports = getCurrent;

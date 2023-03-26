@@ -1,20 +1,20 @@
 const express = require("express");
 
-const authCtrl = require("../../controllers/auth");
+const { authCtrl } = require("../../controllers");
 
 const { validateBody, authenticate } = require("../../middlewares");
 
-const { schemas } = require("../../models");
+const { userSchemas } = require("../../models");
 
 const router = express.Router();
 
 router.post(
   "/register",
-  validateBody(schemas.registerSchema),
+  validateBody(userSchemas.registerSchema),
   authCtrl.register
 );
 
-router.post("/login", validateBody(schemas.loginSchema), authCtrl.login);
+router.post("/login", validateBody(userSchemas.loginSchema), authCtrl.login);
 
 router.get("/current", authenticate, authCtrl.getCurrent);
 

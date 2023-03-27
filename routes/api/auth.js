@@ -1,11 +1,10 @@
 const express = require("express");
 
 const { authCtrl } = require("../../controllers");
-const { ctrlWrapper } = require("../../helpers");
 
 const { validateBody, authenticate, upload } = require("../../middlewares");
 
-const { userSchemas } = require("../../models");
+const { userSchemas, emailSchema } = require("../../models");
 
 const router = express.Router();
 
@@ -14,6 +13,10 @@ router.post(
   validateBody(userSchemas.registerSchema),
   authCtrl.register
 );
+
+router.get("/verify/:verificationToken", authCtrl.verifyEmail);
+
+router.post("/verify", validateBody(emailSchema), authCtrl.resendVerifyEmail);
 
 router.post("/login", validateBody(userSchemas.loginSchema), authCtrl.login);
 
